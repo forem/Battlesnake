@@ -1,6 +1,5 @@
 import json
 import os
-import random
 import bottle
 
 from board import *
@@ -53,16 +52,17 @@ def move():
     print(json.dumps(data))
 
     height, width = data["board"]["height"], data["board"]["width"]
-    you_x, you_y = data["you"]["body"][1]["x"], data["you"]["body"][1]["y"]  
+    you_x, you_y = data["you"]["body"][0]["x"], data["you"]["body"][0]["y"] 
     board = empty_board(height, width)
     board = add_food(board, data["board"]["food"])
     board = add_you(board, data["you"]["body"])
 
     print_board(board)
-    print(you_x)
-    print(you_y)
+    print('x: ' + str(you_x + 1))
+    print('y: ' + str(you_y + 1))
 
     move = decide_move(board, height, width, you_x, you_y)
+    print(move)
 
     return move_response(move)
 

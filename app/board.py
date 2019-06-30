@@ -24,7 +24,25 @@ def add_you(board, body):
     return board
 
 def print_board(board):
+
+    x_label = 1
+    print("  ", end =" ")
+    for coord in board[0]:
+        if x_label < 10:
+            print(x_label, end ="  ")
+        else:
+            print(x_label, end=" ")
+        x_label += 1
+    print()
+
+    y_label = 1
     for x in board:
+        if y_label < 10:
+            print(y_label, end ="  ")
+        else:
+            print(y_label, end =" ")
+
         for coord in x:
-            print(coord, end =" ")
+            print(coord, end ="  ")
         print()
+        y_label += 1
