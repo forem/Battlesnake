@@ -54,6 +54,7 @@ def move():
     height, width = data["board"]["height"], data["board"]["width"]    
     board = empty_board(height, width)
     board = add_food(board, data["board"]["food"])
+    board = add_you(board, data["you"]["body"])
 
     print_board(board)
 
