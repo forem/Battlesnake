@@ -4,6 +4,7 @@ import random
 import bottle
 
 from board import *
+from logic import *
 
 from api import ping_response, start_response, move_response, end_response
 
@@ -51,17 +52,19 @@ def move():
     """
     print(json.dumps(data))
 
-    height, width = data["board"]["height"], data["board"]["width"]    
+    height, width = data["board"]["height"], data["board"]["width"]
+    you_x, you_y = data["you"]["body"][1]["x"], data["you"]["body"][1]["y"]  
     board = empty_board(height, width)
     board = add_food(board, data["board"]["food"])
     board = add_you(board, data["you"]["body"])
 
     print_board(board)
+    print(you_x)
+    print(you_y)
 
-    directions = ['up', 'down', 'left', 'right']
-    direction = random.choice(directions)
+    move = decide_move(board, height, width, you_x, you_y)
 
-    return move_response(direction)
+    return move_response(move)
 
 
 @bottle.post('/end')
