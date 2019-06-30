@@ -3,6 +3,8 @@ import os
 import random
 import bottle
 
+from board import *
+
 from api import ping_response, start_response, move_response, end_response
 
 @bottle.route('/')
@@ -48,6 +50,12 @@ def move():
             snake AI must choose a direction to move in.
     """
     print(json.dumps(data))
+
+    height, width = data["board"]["height"], data["board"]["width"]    
+    board = empty_board(height, width)
+    board = add_food(board, data["board"]["food"])
+
+    print_board(board)
 
     directions = ['up', 'down', 'left', 'right']
     direction = random.choice(directions)
