@@ -69,7 +69,8 @@ def move():
 def end():
     data = bottle.request.json
 
-    print(json.dumps(data))
+    # print(json.dumps(data))
+    print('Game Over!')
 
     return end_response()
 

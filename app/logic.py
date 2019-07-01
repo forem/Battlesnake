@@ -39,4 +39,15 @@ def decide_move(board, height, width, you_x, you_y, health):
         return random.choice(directions)
     else:
         print("It's A* time, baby!*******************************************************************************************")
-        return get_food(board, you_x, you_y, height, width)
+        move = get_food(board, you_x, you_y, height, width)
+        if len(move) == 0:
+            print("Can't eat")
+            directions = ['up', 'down', 'left', 'right']
+            directions = avoid_self_and_borders(board, directions, height, width, you_x, you_y)
+            if len(directions) == 0:
+                print('Guaranteed loss')
+                return 'down'
+            print('Options:', directions)
+            return random.choice(directions)
+        return move
+

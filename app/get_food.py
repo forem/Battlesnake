@@ -74,9 +74,6 @@ def a_star(board, you_x, you_y, height, width):
             else:
                 _open.append(neighbor)
         top = _open.popleft()
-    print(top.x + 1)
-    print(top.y + 1)
-    print(top.direction)
     return top.get_move("initial")
 
 def get_food(board, you_x, you_y, height, width):
