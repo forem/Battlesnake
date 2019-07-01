@@ -1,5 +1,7 @@
 import random
 
+from get_food import *
+
 def avoid_self_and_borders(board, directions, height, width, you_x, you_y):
     try:
         if (board[you_y + 1][you_x] == 'Y'):
@@ -26,11 +28,15 @@ def avoid_self_and_borders(board, directions, height, width, you_x, you_y):
 
     return directions
 
-def decide_move(board, height, width, you_x, you_y):
-    directions = ['up', 'down', 'left', 'right']
-    directions = avoid_self_and_borders(board, directions, height, width, you_x, you_y)
-    if len(directions) == 0:
-        print('Guaranteed loss')
-        return 'down'
-    print('Options:', directions)
-    return random.choice(directions)
+def decide_move(board, height, width, you_x, you_y, health):
+    if False: #health > 50:
+        directions = ['up', 'down', 'left', 'right']
+        directions = avoid_self_and_borders(board, directions, height, width, you_x, you_y)
+        if len(directions) == 0:
+            print('Guaranteed loss')
+            return 'down'
+        print('Options:', directions)
+        return random.choice(directions)
+    else:
+        print("It's A* time, baby!*******************************************************************************************")
+        return get_food(board, you_x, you_y, height, width)

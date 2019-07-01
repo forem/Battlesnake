@@ -5,7 +5,7 @@ def empty_board(height, width):
     for h in range(height):
         row = []
         for w in range(width):
-            row.append('0')
+            row.append('.')
         board.append(row)
     return board
 
