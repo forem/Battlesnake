@@ -9,7 +9,7 @@ class Point:
         self.direction = "none"
     
     def get_symbol(self, board):
-        return board[self.y][self.x]
+        return str(board[self.y][self.x])
 
     def get_neighbors(self, board, height, width):
         neighbors = []
@@ -17,23 +17,27 @@ class Point:
         if self.y > 0:
             up = Point(self, self.x, self.y - 1, self.rank + 1)
             up.direction = "up"
-            neighbors.append(up)
+            if (up.get_symbol(board) == '.') or (up.get_symbol(board) == 'F'):
+                neighbors.append(up)
 
         if self.y < (height - 1):
             down = Point(self, self.x, self.y + 1, self.rank + 1)
             down.direction = "down"
-            neighbors.append(down)
-
-        if self.x > 0:
-            left = Point(self, self.x - 1, self.y, self.rank + 1)
-            left.direction = "left"
-            neighbors.append(left)
+            if (down.get_symbol(board) == '.') or (down.get_symbol(board) == 'F'):
+                neighbors.append(down)
 
         if self.x < (width - 1):
             right = Point(self, self.x + 1, self.y, self.rank + 1)
             right.direction = "right"
-            neighbors.append(right)
+            if (right.get_symbol(board) == '.') or (right.get_symbol(board) == 'F'):
+                neighbors.append(right)
 
+        if self.x > 0:
+            left = Point(self, self.x - 1, self.y, self.rank + 1)
+            left.direction = "left"
+            if (left.get_symbol(board) == '.') or (left.get_symbol(board) == 'F'):
+                neighbors.append(left)
+        
         return neighbors
 
     def get_move(self, prev_move):
@@ -56,24 +60,33 @@ def a_star(board, you_x, you_y, height, width):
     _open = collections.deque([])
     _open.append(Point('none', you_x, you_y, 0))
     closed = set()
-    top = _open.popleft()
-    while top.get_symbol(board) != "F":
-        for neighbor in top.get_neighbors(board, height, width):
-            if neighbor in _open:
+    top = ""
+    while True:
+        try:
+            top = _open.popleft()
+        except:
+            return []
+        if top.get_symbol(board) == 'F':
+            break
+        closed.add(top)
+        neighbors = top.get_neighbors(board, height, width)
+        if len(neighbors) > 0:
+            for neighbor in neighbors:
+                in_open, in_closed = False, False
                 for value in tuple(_open):
                     if value == neighbor:
                         if value.rank > neighbor.rank:
                             _open.remove(value)
-                            _open.append(neighbor)
-            elif neighbor in closed:
+                        else:
+                            in_open = True                            
                 for value in tuple(closed):
                     if value == neighbor:
                         if value.rank > neighbor.rank:
                             closed.remove(value)
-                            _open.append(neighbor)
-            else:
-                _open.append(neighbor)
-        top = _open.popleft()
+                        else:
+                            in_closed = True
+                if (not in_open) and (not in_closed):
+                    _open.append(neighbor)
     return top.get_move("initial")
 
 def get_food(board, you_x, you_y, height, width):
