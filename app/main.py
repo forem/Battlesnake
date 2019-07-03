@@ -45,22 +45,22 @@ def start():
 def move():
     data = bottle.request.json
 
-    # print(json.dumps(data))
-
     height, width = data["board"]["height"], data["board"]["width"]
-    you_x, you_y = data["you"]["body"][0]["x"], data["you"]["body"][0]["y"] 
+    food = data["board"]["food"]
+    you_health, you_body = data["you"]["health"], data["you"]["body"]
+    you_x, you_y = you_body[0]["x"], you_body[0]["y"]
+
     board = empty_board(height, width)
-    board = add_food(board, data["board"]["food"])
-    board = add_you(board, data["you"]["body"])
-    # food = data["board"]["food"]
+    board = add_food(board, food)
+    board = add_you(board, you_body)
+
+    move = decide_move(board, height, width, you_x, you_y, you_health)
 
     print_board(board)
-    print('x: ' + str(you_x + 1))
-    print('y: ' + str(you_y + 1))
-
-    move = decide_move(board, height, width, you_x, you_y, data["you"]["health"])
-    print('move: ' + str(move))
-    print('health: ' + str(data["you"]["health"]))
+    print(f'x: {you_x + 1}')
+    print(f'y: {you_y + 1}')
+    print(f'move: {move}')
+    print(f'health: {you_health}')
 
     return move_response(move)
 
@@ -70,7 +70,6 @@ def end():
     data = bottle.request.json
 
     # print(json.dumps(data))
-    print('Game Over!')
 
     return end_response()
 
