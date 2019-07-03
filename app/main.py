@@ -50,13 +50,11 @@ def move():
     you_health, you_body = data["you"]["health"], data["you"]["body"]
     you_x, you_y = you_body[0]["x"], you_body[0]["y"]
 
-    board = empty_board(height, width)
-    board = add_food(board, food)
-    board = add_you(board, you_body)
+    board = Board(height, width, food, you_body)
 
-    move = decide_move(board, height, width, you_x, you_y, you_health)
+    move = decide_move(board.board, height, width, you_x, you_y, you_health)
 
-    print_board(board)
+    board.print_board()
     print(f'x: {you_x + 1}')
     print(f'y: {you_y + 1}')
     print(f'move: {move}')
