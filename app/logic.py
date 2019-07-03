@@ -1,52 +1,30 @@
 import random
 
-from get_food import *
+from a_star import *
 
-def avoid_self_and_borders(board, directions, height, width, you_x, you_y):
-    try:
-        if (board[you_y + 1][you_x] == 'Y'):
-            directions.remove('down')
-    except:
+def avoid_self_and_borders_randomly(board, directions, height, width, you_x, you_y):
+    if (board[you_y + 1][you_x] == 'Y') and (you_y < (height - 1)):
         directions.remove('down')
-    try:
-        if (board[you_y - 1][you_x] == 'Y') or (you_y == 0):
-            directions.remove('up')
-    except:
+    if (board[you_y - 1][you_x] == 'Y') or (you_y == 0):
         directions.remove('up')
-    
-    try:
-        if (board[you_y][you_x - 1] == 'Y') or (you_x == 0):
-            directions.remove('left')
-    except:
+    if (board[you_y][you_x - 1] == 'Y') or (you_x == 0):
         directions.remove('left')
-
-    try:
-        if (board[you_y][you_x + 1] == 'Y'):
-            directions.remove('right')
-    except:
+    if (board[you_y][you_x + 1] == 'Y') and (you_x < (width - 1)):
         directions.remove('right')
 
-    return directions
+    if len(directions) == 0:
+        print('Guaranteed loss')
+        return 'down'
+
+    return random.choice(directions)
 
 def decide_move(board, height, width, you_x, you_y, health):
     if False: #health > 45:
-        directions = ['up', 'down', 'left', 'right']
-        directions = avoid_self_and_borders(board, directions, height, width, you_x, you_y)
-        if len(directions) == 0:
-            print('Guaranteed loss')
-            return 'down'
-        print('Options:', directions)
-        return random.choice(directions)
+        return avoid_self_and_borders(board, ['up', 'down', 'left', 'right'], height, width, you_x, you_y)
     else:
         move = get_food(board, you_x, you_y, height, width)
         if len(move) == 0:
             print("Can't eat")
-            directions = ['up', 'down', 'left', 'right']
-            directions = avoid_self_and_borders(board, directions, height, width, you_x, you_y)
-            if len(directions) == 0:
-                print('Guaranteed loss')
-                return 'down'
-            print('Options:', directions)
-            return random.choice(directions)
+            return avoid_self_and_borders(board, ['up', 'down', 'left', 'right'], height, width, you_x, you_y)
         return move
 
