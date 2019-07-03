@@ -1,33 +1,27 @@
 class Board:
 
     def __init__(self, height, width, food, you_body):
-        self.board = self.empty_board(height, width)
-        self.board = self.add_food(food)
-        self.board = self.add_you(you_body)
+        self.create_empty_board(height, width)
+        self.add_food(food)
+        self.add_you(you_body)
 
-    def empty_board(self, height, width):
+    def create_empty_board(self, height, width):
         board = []
-
         for h in range(height):
-            row = []
-            for w in range(width):
-                row.append('.')
-            board.append(row)
-        return board
+            board.append(['.'] * width)
+        self.board = board
 
     def add_food(self, food):
         for f in food:
             x_coord = f['x']
             y_coord = f['y']
             self.board[y_coord][x_coord] = 'F'
-        return self.board
 
     def add_you(self, you_body):
         for b in you_body:
             x_coord = b['x']
             y_coord = b['y']
             self.board[y_coord][x_coord] = 'Y'
-        return self.board
 
     def print_board(self):
 
