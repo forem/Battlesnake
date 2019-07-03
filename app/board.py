@@ -23,6 +23,16 @@ class Board:
             y_coord = b['y']
             self.board[y_coord][x_coord] = 'Y'
 
+        head = you_body[0]
+        head_x_coord = head['x']
+        head_y_coord = head['y']
+        self.board[head_y_coord][head_x_coord] = 'H'
+
+        tail = you_body[-1]
+        tail_x_coord = tail['x']
+        tail_y_coord = tail['y']
+        self.board[tail_y_coord][tail_x_coord] = 'T'
+
     def print_board(self):
 
         x_label = 1
