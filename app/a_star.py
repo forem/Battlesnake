@@ -15,7 +15,7 @@ class Point:
         return self.board[self.y][self.x]
 
     def check_safe(self):
-        safe = ['F', '.']
+        safe = ['F', '.', 'T']
         return self.get_symbol() in safe
 
     def get_neighbors(self):
@@ -88,3 +88,6 @@ def a_star(board, you_x, you_y, height, width, target):
 
 def get_food(board, you_x, you_y, height, width):
     return a_star(board, you_x, you_y, height, width, 'F')
+
+def chase_tail(board, you_x, you_y, height, width):
+    return a_star(board, you_x, you_y, height, width, 'T')

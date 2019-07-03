@@ -52,7 +52,7 @@ def move():
 
     board = Board(height, width, food, you_body)
 
-    move = decide_move(board.board, height, width, you_x, you_y, you_health)
+    move = decide_move(board.board, height, width, you_x, you_y, you_health, you_body)
 
     board.print_board()
     print(f'x: {you_x + 1}')

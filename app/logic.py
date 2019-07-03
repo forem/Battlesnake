@@ -18,9 +18,13 @@ def avoid_self_and_borders_randomly(board, directions, height, width, you_x, you
 
     return random.choice(directions)
 
-def decide_move(board, height, width, you_x, you_y, health):
-    if False: #health > 45:
-        return avoid_self_and_borders(board, ['up', 'down', 'left', 'right'], height, width, you_x, you_y)
+def decide_move(board, height, width, you_x, you_y, health, you_body):
+    if (health >= 50) and (len(you_body) > 3):
+        move = chase_tail(board, you_x, you_y, height, width)
+        if len(move) == 0:
+            print("Can't chase tail")
+            return avoid_self_and_borders(board, ['up', 'down', 'left', 'right'], height, width, you_x, you_y)
+        return move
     else:
         move = get_food(board, you_x, you_y, height, width)
         if len(move) == 0:
