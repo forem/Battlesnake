@@ -2,13 +2,8 @@ import json
 import os
 import bottle
 
-try:
-    from board import *
-    from logic import *
-except:
-    from .board import *
-    from .logic import *
-
+from .board import *
+from .logic import *
 
 from api import ping_response, start_response, move_response, end_response
 
