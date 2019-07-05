@@ -38,22 +38,20 @@ class Board:
         for snake in snakes:
             if snake["id"] == you_id:
                 continue
-            else:
-                for b in snake["body"]:
-                    x_coord = b['x']
-                    y_coord = b['y']
-                    self.board[y_coord][x_coord] = 'o'
+            for b in snake["body"]:
+                x_coord = b['x']
+                y_coord = b['y']
+                self.board[y_coord][x_coord] = 'o'
                 
-                head = snake["body"][0]
-                head_x_coord = head['x']
-                head_y_coord = head['y']
-                self.board[head_y_coord][head_x_coord] = 'h'
+            head = snake["body"][0]
+            head_x_coord = head['x']
+            head_y_coord = head['y']
+            self.board[head_y_coord][head_x_coord] = 'h'
 
-                tail = snake["body"][-1]
-                tail_x_coord = tail['x']
-                tail_y_coord = tail['y']
-                self.board[tail_y_coord][tail_x_coord] = 't'
-
+            tail = snake["body"][-1]
+            tail_x_coord = tail['x']
+            tail_y_coord = tail['y']
+            self.board[tail_y_coord][tail_x_coord] = 't'
 
     def print_board(self):
 
