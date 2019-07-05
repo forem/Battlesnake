@@ -49,8 +49,10 @@ def move():
     food = data["board"]["food"]
     you_health, you_body = data["you"]["health"], data["you"]["body"]
     you_x, you_y = you_body[0]["x"], you_body[0]["y"]
+    you_id = data["you"]["id"]
+    snakes = data["board"]["snakes"]
 
-    board = Board(height, width, food, you_body)
+    board = Board(height, width, food, you_body, snakes, you_id)
 
     move = decide_move(board.board, height, width, you_x, you_y, you_health, you_body)
 

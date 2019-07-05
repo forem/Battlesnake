@@ -15,7 +15,7 @@ class Point:
         return self.board[self.y][self.x]
 
     def check_safe(self):
-        safe = ['F', '.', 'T']
+        safe = ['F', '.', 'T', 't']
         return self.get_symbol() in safe
 
     def get_neighbors(self):
