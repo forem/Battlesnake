@@ -34,7 +34,10 @@ class Board:
         tail_y_coord = tail['y']
         self.board[tail_y_coord][tail_x_coord] = 'T'
 
+    
     def add_others(self, snakes, you_id):
+        pass
+        """
         for snake in snakes:
             if snake["id"] == you_id:
                 continue
@@ -52,6 +55,7 @@ class Board:
             tail_x_coord = tail['x']
             tail_y_coord = tail['y']
             self.board[tail_y_coord][tail_x_coord] = 't'
+            """
 
     def print_board(self):
 
