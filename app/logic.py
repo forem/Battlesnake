@@ -2,19 +2,22 @@ import random
 
 from .a_star import *
 
-def avoid_self_and_borders_randomly(board, directions, height, width, you_x, you_y):
+def avoid_self_and_borders_randomly(board, height, width, you_x, you_y):
+    directions = list()
+    safe = ['F', '.', 'T', 't']
+
     if you_y < (height - 1):
-        if (board[you_y + 1][you_x] == 'Y') and (you_y < (height - 1)):
-            directions.remove('down')
+        if (board[you_y + 1][you_x] in safe):
+            directions.append('down')
     if you_y > 0:
-        if (board[you_y - 1][you_x] == 'Y') or (you_y == 0):
-            directions.remove('up')
+        if (board[you_y - 1][you_x] in safe):
+            directions.append('up')
     if you_x > 0:
-        if (board[you_y][you_x - 1] == 'Y') or (you_x == 0):
-            directions.remove('left')
+        if (board[you_y][you_x - 1] in safe):
+            directions.append('left')
     if you_x < (width - 1):
-        if (board[you_y][you_x + 1] == 'Y') and (you_x < (width - 1)):
-            directions.remove('right')
+        if (board[you_y][you_x + 1] in safe):
+            directions.append('right')
 
     if len(directions) == 0:
         print('Guaranteed loss')
@@ -35,12 +38,12 @@ def decide_move(board, height, width, you_x, you_y, you_health, you_body, snakes
         move = chase_tail(board, you_x, you_y, height, width)
         if len(move) == 0:
             print("Can't chase tail")
-            return avoid_self_and_borders_randomly(board, ['up', 'down', 'left', 'right'], height, width, you_x, you_y)
+            return avoid_self_and_borders_randomly(board, height, width, you_x, you_y)
         return move
     else:
         move = get_food(board, you_x, you_y, height, width)
         if len(move) == 0:
             print("Can't eat")
-            return avoid_self_and_borders_randomly(board, ['up', 'down', 'left', 'right'], height, width, you_x, you_y)
+            return avoid_self_and_borders_randomly(board, height, width, you_x, you_y)
         return move
 
