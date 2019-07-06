@@ -1,6 +1,6 @@
 import random
 
-from .a_star import *
+from a_star import *
 
 def avoid_self_and_borders_randomly(board, directions, height, width, you_x, you_y):
     if (board[you_y + 1][you_x] == 'Y') and (you_y < (height - 1)):
@@ -18,8 +18,16 @@ def avoid_self_and_borders_randomly(board, directions, height, width, you_x, you
 
     return random.choice(directions)
 
-def decide_move(board, height, width, you_x, you_y, health, you_body):
-    if (health >= 50) and (len(you_body) > 3):
+def decide_move(board, height, width, you_x, you_y, you_health, you_body, snakes):
+
+    can_chase_tail = True
+
+    for snake in snakes:
+        if snake["health"] >= you_health:
+            can_chase_tail = False
+            break
+
+    if (you_health >= 50) and can_chase_tail:
         move = chase_tail(board, you_x, you_y, height, width)
         if len(move) == 0:
             print("Can't chase tail")
