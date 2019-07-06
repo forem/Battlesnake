@@ -1,6 +1,6 @@
 import random
 
-from a_star import *
+from .a_star import *
 
 def avoid_self_and_borders_randomly(board, directions, height, width, you_x, you_y):
     if (board[you_y + 1][you_x] == 'Y') and (you_y < (height - 1)):
