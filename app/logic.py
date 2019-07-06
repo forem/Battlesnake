@@ -3,14 +3,18 @@ import random
 from .a_star import *
 
 def avoid_self_and_borders_randomly(board, directions, height, width, you_x, you_y):
-    if (board[you_y + 1][you_x] == 'Y') and (you_y < (height - 1)):
-        directions.remove('down')
-    if (board[you_y - 1][you_x] == 'Y') or (you_y == 0):
-        directions.remove('up')
-    if (board[you_y][you_x - 1] == 'Y') or (you_x == 0):
-        directions.remove('left')
-    if (board[you_y][you_x + 1] == 'Y') and (you_x < (width - 1)):
-        directions.remove('right')
+    if self.y < (self.height - 1):
+        if (board[you_y + 1][you_x] == 'Y') and (you_y < (height - 1)):
+            directions.remove('down')
+    if self.y > 0:
+        if (board[you_y - 1][you_x] == 'Y') or (you_y == 0):
+            directions.remove('up')
+    if self.x > 0:
+        if (board[you_y][you_x - 1] == 'Y') or (you_x == 0):
+            directions.remove('left')
+    if self.x < (self.width - 1):
+        if (board[you_y][you_x + 1] == 'Y') and (you_x < (width - 1)):
+            directions.remove('right')
 
     if len(directions) == 0:
         print('Guaranteed loss')
