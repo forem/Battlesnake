@@ -1,3 +1,5 @@
+from .point import *
+
 class Board:
 
     def __init__(self, height, width, food, you_body, snakes, you_id):
@@ -5,6 +7,7 @@ class Board:
         self.add_food(food)
         self.add_you(you_body)
         self.add_others(snakes, you_id)
+        self.flood_flow_get_deadends(Point(self.board, you_body[0]['x'], you_body[0]['y'], width, height))
 
     def create_empty_board(self, height, width):
         board = []
@@ -29,10 +32,11 @@ class Board:
         head_y_coord = head['y']
         self.board[head_y_coord][head_x_coord] = 'H'
 
-        tail = you_body[-1]
-        tail_x_coord = tail['x']
-        tail_y_coord = tail['y']
-        self.board[tail_y_coord][tail_x_coord] = 'T'
+        if len(you_body) > 3:
+            tail = you_body[-1]
+            tail_x_coord = tail['x']
+            tail_y_coord = tail['y']
+            self.board[tail_y_coord][tail_x_coord] = 'T'
 
     
     def add_others(self, snakes, you_id):
@@ -53,6 +57,18 @@ class Board:
             tail_x_coord = tail['x']
             tail_y_coord = tail['y']
             self.board[tail_y_coord][tail_x_coord] = 't'
+
+    def flood_flow_get_deadends(self, point):
+        if (not point.check_safe()) or (point.get_symbol() == 'H'):
+            return
+        safe_neighbors = 0
+        for neighbor in point.get_neighbors():
+            if neighbor.check_safe():
+                safe_neighbors += 1
+                self.flood_flow_get_deadends(point)
+        if safe_neighbors <= 1:
+            self.board[point.y][point.x] = 'x'
+
 
     def print_board(self):
 
