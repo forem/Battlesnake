@@ -31,12 +31,12 @@ def decide_move(board, height, width, you_x, you_y, you_health, you_body, snakes
         move = chase_tail(board, you_x, you_y, height, width)
         if len(move) == 0:
             print("Can't chase tail")
-            return avoid_self_and_borders(board, ['up', 'down', 'left', 'right'], height, width, you_x, you_y)
+            return avoid_self_and_borders_randomly(board, ['up', 'down', 'left', 'right'], height, width, you_x, you_y)
         return move
     else:
         move = get_food(board, you_x, you_y, height, width)
         if len(move) == 0:
             print("Can't eat")
-            return avoid_self_and_borders(board, ['up', 'down', 'left', 'right'], height, width, you_x, you_y)
+            return avoid_self_and_borders_randomly(board, ['up', 'down', 'left', 'right'], height, width, you_x, you_y)
         return move
 
