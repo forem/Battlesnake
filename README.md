@@ -13,12 +13,12 @@ This AI client uses the [bottle web framework](http://bottlepy.org/docs/dev/inde
 * Implement method to follow other snake tails
 * Make snake move into free space
 
+## Running the Snake Locally
+
 #### You will need...
 
 * a working Python 3.7 development environment
 * [pip](https://pip.pypa.io/en/latest/installing.html) to install Python dependencies
-
-## Running the Snake Locally
 
 1) [Fork this repo](https://github.com/battlesnakeio/starter-snake-python/fork).
 
