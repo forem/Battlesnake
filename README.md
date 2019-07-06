@@ -1,17 +1,21 @@
-# starter-snake-python
+# Python Battlesnake
 
-A simple [Battlesnake AI](http://battlesnake.io) written in Python. 
+My [Battlesnake AI](http://battlesnake.io) written in Python. It currently uses A* and other logic to determine the best path to gather food and follow its tail.
 
-Visit [https://github.com/battlesnakeio/community/blob/master/starter-snakes.md](https://github.com/battlesnakeio/community/blob/master/starter-snakes.md) for API documentation and instructions for running your AI.
+Visit [https://github.com/battlesnakeio/community/blob/master/starter-snakes.md](https://github.com/battlesnakeio/community/blob/master/starter-snakes.md) for API documentation and instructions for running the AI.
 
 This AI client uses the [bottle web framework](http://bottlepy.org/docs/dev/index.html) to serve requests and the [gunicorn web server](http://gunicorn.org/) for running bottle on Heroku. Dependencies are listed in [requirements.txt](requirements.txt).
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+## Todo
+
+* Fix snake going back on itself after picking up food
+* Implement flood flow algorithm for dead-end detection
+* Implement method to follow other snake tails
+* Make snake move into free space
 
 #### You will need...
 
-* a working Python 2.7 development environment ([getting started guide](http://hackercodex.com/guide/python-development-environment-on-mac-osx/))
-* experience [deploying Python apps to Heroku](https://devcenter.heroku.com/articles/getting-started-with-python#introduction)
+* a working Python 3.7 development environment
 * [pip](https://pip.pypa.io/en/latest/installing.html) to install Python dependencies
 
 ## Running the Snake Locally
@@ -60,7 +64,3 @@ or visit [http://APP_NAME.herokuapp.com](http://APP_NAME.herokuapp.com).
 ```
 heroku logs --tail
 ```
-
-## Questions?
-
-Email [battlesnake@sendwithus.com](mailto:battlesnake@sendwithus.com), or tweet [@send_with_us](http://twitter.com/send_with_us).
