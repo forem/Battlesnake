@@ -7,7 +7,7 @@ class Board:
         self.create_empty_board(height, width)
         self.add_food(food)
         self.add_you(you_body)
-        self.add_others(snakes, you_id, width, height)
+        self.add_others(snakes, you_body, you_id, width, height)
         # self.flood_flow_get_deadends(Point(self.board, you_body[0]['x'], you_body[0]['y'], width, height))
 
     def create_empty_board(self, height, width):
@@ -40,11 +40,10 @@ class Board:
             self.board[tail_y_coord][tail_x_coord] = 'T'
 
     
-    def add_others(self, snakes, you_id, width, height):
-        you_size = 0
+    def add_others(self, snakes, you_body, you_id, width, height):
+        you_size = len(you_body)
         for snake in snakes:
             if snake["id"] == you_id:
-                you_size = len(snake)
                 continue
             for b in snake["body"]:
                 x_coord = b['x']
