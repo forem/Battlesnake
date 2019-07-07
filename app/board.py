@@ -23,9 +23,14 @@ class Board:
             self.board[y_coord][x_coord] = 'F'
 
     def add_you(self, you_body):
+        coords = set()
+        duplicates = False
         for b in you_body:
             x_coord = b['x']
             y_coord = b['y']
+            if (x_coord, y_coord) in coords:
+                duplicates = True
+            coords.append((x_coord, y_coord))
             self.board[y_coord][x_coord] = 'Y'
 
         head = you_body[0]
@@ -33,8 +38,7 @@ class Board:
         head_y_coord = head['y']
         self.board[head_y_coord][head_x_coord] = 'H'
 
-        print(you_body)
-        if (len(you_body) > 3):
+        if (len(you_body) > 3) and not duplicates:
             tail = you_body[-1]
             tail_x_coord = tail['x']
             tail_y_coord = tail['y']
@@ -46,9 +50,16 @@ class Board:
         for snake in snakes:
             if snake["id"] == you_id:
                 continue
+
+            coords = set()
+            duplicates = False
+
             for b in snake["body"]:
                 x_coord = b['x']
                 y_coord = b['y']
+                if (x_coord, y_coord) in coords:
+                    duplicates = True
+                coords.append((x_coord, y_coord))
                 self.board[y_coord][x_coord] = 'o'
                 
             head = snake["body"][0]
@@ -56,16 +67,15 @@ class Board:
             head_y_coord = head['y']
             self.board[head_y_coord][head_x_coord] = 'h'
 
-
-            print(snake["body"])
             if len(snake["body"]) >= you_size:
                 for neighbor in Point(self.board, head_x_coord, head_y_coord, width, height).get_neighbors():
                     self.board[neighbor.y][neighbor.x] = '*'
 
-            tail = snake["body"][-1]
-            tail_x_coord = tail['x']
-            tail_y_coord = tail['y']
-            self.board[tail_y_coord][tail_x_coord] = 't'
+            if not duplicates:
+                tail = snake["body"][-1]
+                tail_x_coord = tail['x']
+                tail_y_coord = tail['y']
+                self.board[tail_y_coord][tail_x_coord] = 't'
 
     def flood_flow_get_deadends(self, point):
         if (point.get_symbol() == 'x') or (not point.check_safe()):
