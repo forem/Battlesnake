@@ -30,7 +30,7 @@ class Board:
             y_coord = b['y']
             if (x_coord, y_coord) in coords:
                 duplicates = True
-            coords.append((x_coord, y_coord))
+            coords.add((x_coord, y_coord))
             self.board[y_coord][x_coord] = 'Y'
 
         head = you_body[0]
@@ -59,7 +59,7 @@ class Board:
                 y_coord = b['y']
                 if (x_coord, y_coord) in coords:
                     duplicates = True
-                coords.append((x_coord, y_coord))
+                coords.add((x_coord, y_coord))
                 self.board[y_coord][x_coord] = 'o'
                 
             head = snake["body"][0]
