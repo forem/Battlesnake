@@ -45,6 +45,7 @@ class Board:
         for snake in snakes:
             if snake["id"] == you_id:
                 you_size = len(snake)
+                continue
             for b in snake["body"]:
                 x_coord = b['x']
                 y_coord = b['y']
