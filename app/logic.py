@@ -46,9 +46,12 @@ def decide_move(board, height, width, you_x, you_y, you_health, you_body, snakes
     else:
         move = get_food(board, you_x, you_y, height, width)
         if len(move) == 0:
-            move2 = avoid_self_and_borders_randomly(board, height, width, you_x, you_y, ['F', '.', 'T', 't'])
+            move2 = chase_tail(board, you_x, you_y, height, width)
             if len(move2) == 0:
-                return avoid_self_and_borders_randomly(board, height, width, you_x, you_y, ['F', '.', 'T', 't', '*'])
+                move3 = avoid_self_and_borders_randomly(board, height, width, you_x, you_y, ['F', '.', 'T', 't'])
+                if len(move3) == 0:
+                    return avoid_self_and_borders_randomly(board, height, width, you_x, you_y, ['F', '.', 'T', 't', '*'])
+                return move3
             return move2
         return move
 
