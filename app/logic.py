@@ -2,9 +2,8 @@ import random
 
 from .a_star import *
 
-def avoid_self_and_borders_randomly(board, height, width, you_x, you_y):
+def avoid_self_and_borders_randomly(board, height, width, you_x, you_y, safe):
     directions = list()
-    safe = ['F', '.', 'T', 't']
 
     if you_y < (height - 1):
         if (board[you_y + 1][you_x] in safe):
@@ -18,10 +17,6 @@ def avoid_self_and_borders_randomly(board, height, width, you_x, you_y):
     if you_x < (width - 1):
         if (board[you_y][you_x + 1] in safe):
             directions.append('right')
-
-    if len(directions) == 0:
-        print('Guaranteed loss')
-        return 'down'
 
     return random.choice(directions)
 
@@ -39,12 +34,16 @@ def decide_move(board, height, width, you_x, you_y, you_health, you_body, snakes
         if len(move) == 0:
             move2 = get_food(board, you_x, you_y, height, width)
             if len(move2) == 0:
-                return avoid_self_and_borders_randomly(board, height, width, you_x, you_y)
+                move3 = avoid_self_and_borders_randomly(board, height, width, you_x, you_y, ['F', '.', 'T', 't'])
+                if len(move3) == 0:
+                    return avoid_self_and_borders_randomly(board, height, width, you_x, you_y, ['F', '.', 'T', 't', '*'])
             return move2
         return move
     else:
         move = get_food(board, you_x, you_y, height, width)
         if len(move) == 0:
-            return avoid_self_and_borders_randomly(board, height, width, you_x, you_y)
+            move2 = avoid_self_and_borders_randomly(board, height, width, you_x, you_y, ['F', '.', 'T', 't'])
+            if len(move2) == 0:
+                return avoid_self_and_borders_randomly(board, height, width, you_x, you_y, ['F', '.', 'T', 't', '*'])
         return move
 
