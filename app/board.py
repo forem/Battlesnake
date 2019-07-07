@@ -33,7 +33,8 @@ class Board:
         head_y_coord = head['y']
         self.board[head_y_coord][head_x_coord] = 'H'
 
-        if (len(you_body) > 3) and (len(set(you_body)) == len(you_body)):
+        print(you_body)
+        if (len(you_body) > 3):
             tail = you_body[-1]
             tail_x_coord = tail['x']
             tail_y_coord = tail['y']
