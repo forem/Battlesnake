@@ -56,6 +56,8 @@ class Board:
             head_y_coord = head['y']
             self.board[head_y_coord][head_x_coord] = 'h'
 
+
+            print(snake["body"])
             if len(snake["body"]) >= you_size:
                 for neighbor in Point(self.board, head_x_coord, head_y_coord, width, height).get_neighbors():
                     self.board[neighbor.y][neighbor.x] = '*'
