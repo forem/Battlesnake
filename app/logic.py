@@ -17,19 +17,20 @@ def avoid_self_and_borders_randomly(board, height, width, you_x, you_y, safe):
     if you_x < (width - 1):
         if (board[you_y][you_x + 1] in safe):
             directions.append('right')
-            
+
     if len(directions) == 0:
         return directions
     return random.choice(directions)
 
-def decide_move(board, height, width, you_x, you_y, you_health, you_body, snakes):
+def decide_move(board, height, width, you_x, you_y, you_health, you_body, snakes, you_id):
 
     can_chase_tail = True
 
     for snake in snakes:
         if snake["health"] >= you_health:
-            can_chase_tail = False
-            break
+            if snake["id"] != you_id:
+                can_chase_tail = False
+                break
 
     if (you_health >= 50) and can_chase_tail:
         move = chase_tail(board, you_x, you_y, height, width)
