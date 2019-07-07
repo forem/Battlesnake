@@ -13,7 +13,6 @@ This AI client uses the [bottle web framework](http://bottlepy.org/docs/dev/inde
 - Implement flood flow algorithm for dead-end detection
 - Implement method to follow other snake tails
 - Make snake move into free space
-- Predict other snake's movement (head on collisions)
 - Keep track of wins/losses
 - Refactor to make cleaner (move common variables to different file)
 

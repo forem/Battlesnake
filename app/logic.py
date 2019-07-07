@@ -17,7 +17,9 @@ def avoid_self_and_borders_randomly(board, height, width, you_x, you_y, safe):
     if you_x < (width - 1):
         if (board[you_y][you_x + 1] in safe):
             directions.append('right')
-
+            
+    if len(directions) == 0:
+        return directions
     return random.choice(directions)
 
 def decide_move(board, height, width, you_x, you_y, you_health, you_body, snakes):
