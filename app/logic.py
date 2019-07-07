@@ -37,6 +37,7 @@ def decide_move(board, height, width, you_x, you_y, you_health, you_body, snakes
                 move3 = avoid_self_and_borders_randomly(board, height, width, you_x, you_y, ['F', '.', 'T', 't'])
                 if len(move3) == 0:
                     return avoid_self_and_borders_randomly(board, height, width, you_x, you_y, ['F', '.', 'T', 't', '*'])
+                return move3
             return move2
         return move
     else:
@@ -45,5 +46,6 @@ def decide_move(board, height, width, you_x, you_y, you_health, you_body, snakes
             move2 = avoid_self_and_borders_randomly(board, height, width, you_x, you_y, ['F', '.', 'T', 't'])
             if len(move2) == 0:
                 return avoid_self_and_borders_randomly(board, height, width, you_x, you_y, ['F', '.', 'T', 't', '*'])
+            return move2
         return move
 
