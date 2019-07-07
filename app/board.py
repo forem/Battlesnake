@@ -1,3 +1,4 @@
+from collections import deque
 from .point import *
 
 class Board:
@@ -6,8 +7,8 @@ class Board:
         self.create_empty_board(height, width)
         self.add_food(food)
         self.add_you(you_body)
-        self.add_others(snakes, you_id)
-        self.flood_flow_get_deadends(Point(self.board, you_body[0]['x'], you_body[0]['y'], width, height))
+        self.add_others(snakes, you_id, width, height)
+        # self.flood_flow_get_deadends(Point(self.board, you_body[0]['x'], you_body[0]['y'], width, height))
 
     def create_empty_board(self, height, width):
         board = []
@@ -39,10 +40,11 @@ class Board:
             self.board[tail_y_coord][tail_x_coord] = 'T'
 
     
-    def add_others(self, snakes, you_id):
+    def add_others(self, snakes, you_id, width, height):
+        you_size = 0
         for snake in snakes:
             if snake["id"] == you_id:
-                continue
+                you_size = len(snake)
             for b in snake["body"]:
                 x_coord = b['x']
                 y_coord = b['y']
@@ -53,22 +55,27 @@ class Board:
             head_y_coord = head['y']
             self.board[head_y_coord][head_x_coord] = 'h'
 
+            if len(snake) >= you_size:
+                for neighbor in Point(self.board, head_x_coord, head_y_coord, width, height):
+                    self.board[neighbor.y][neighbor.x] = '*'
+
             tail = snake["body"][-1]
             tail_x_coord = tail['x']
             tail_y_coord = tail['y']
             self.board[tail_y_coord][tail_x_coord] = 't'
 
     def flood_flow_get_deadends(self, point):
-        if (not point.check_safe()) or (point.get_symbol() == 'H'):
+        if (point.get_symbol() == 'x') or (not point.check_safe()):
             return
-        safe_neighbors = 0
-        for neighbor in point.get_neighbors():
-            if neighbor.check_safe():
-                safe_neighbors += 1
-                self.flood_flow_get_deadends(point)
-        if safe_neighbors <= 1:
-            self.board[point.y][point.x] = 'x'
-
+        queue = deque()
+        queue.append(point)
+        checked = list()
+        while len(queue) > 0:
+            current = queue.popleft()
+            for point in current.get_neighbors():
+                if not point in checked:
+                    queue.append(point)
+            checked.append(current)
 
     def print_board(self):
 
