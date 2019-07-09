@@ -52,7 +52,7 @@ def move():
     you_id = data["you"]["id"]
     snakes = data["board"]["snakes"]
 
-    board = Board(height, width, food, you_body, snakes, you_id)
+    board = Board(height, width, food, you_body, snakes, you_id, you_health)
 
     move = decide_move(board.board, height, width, you_x, you_y, you_health, you_body, snakes, you_id)
 
@@ -62,6 +62,9 @@ def move():
     print(f'move: {move}')
     print(f'health: {you_health}')
 
+    if len(move) == 0:
+        print('Believed loss')
+        return random.choice(['up', 'down', 'left', 'right'])
     return move_response(move)
 
 

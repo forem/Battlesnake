@@ -1,14 +1,19 @@
 from collections import deque
+
 from .point import *
 
 class Board:
 
-    def __init__(self, height, width, food, you_body, snakes, you_id):
+    def __init__(self, height, width, food, you_body, snakes, you_id, you_health):
         self.create_empty_board(height, width)
         self.add_food(food)
         self.add_you(you_body)
         self.add_others(snakes, you_body, you_id, width, height)
-        # self.flood_flow_get_deadends(Point(self.board, you_body[0]['x'], you_body[0]['y'], width, height))
+        self.flood_board = self.board
+        self.flood_flowed = list()
+        self.flood_flow_get_deadends(Point(self.board, you_body[0]['x'], you_body[0]['y'], width, height))
+        if you_health < 30:
+            self.add_food(food)
 
     def create_empty_board(self, height, width):
         board = []
@@ -78,17 +83,26 @@ class Board:
                 self.board[tail_y_coord][tail_x_coord] = 't'
 
     def flood_flow_get_deadends(self, point):
-        if (point.get_symbol() == 'x') or (not point.check_safe()):
+        self.flood_flowed.append(point)
+        point.board = self.flood_board
+        if (not point.check_safe()) and (not self.board[point.y][point.x] == 'H'):
             return
-        queue = deque()
-        queue.append(point)
-        checked = list()
-        while len(queue) > 0:
-            current = queue.popleft()
-            for point in current.get_neighbors():
-                if not point in checked:
-                    queue.append(point)
-            checked.append(current)
+        for neighbor in point.get_neighbors():
+            if not neighbor in self.flood_flowed:
+                self.flood_flow_get_deadends(neighbor)
+        if (len(point.get_neighbors()) <= 1) and (not self.board[point.y][point.x] in ['H', 'T', 't']):
+            self.board[point.y][point.x] = '!'
+            if(not point.parent == 'none'):
+                self.flood_flow_get_deadends_again(point.parent)
+
+    def flood_flow_get_deadends_again(self, point):
+        point.board = self.flood_board
+        if (not point.check_safe()) and (not self.board[point.y][point.x] == 'H'):
+            return
+        if (len(point.get_neighbors()) == 0) and (not self.board[point.y][point.x] in ['H', 'T', 't']):
+            self.board[point.y][point.x] = '!'
+            if(not point.parent == 'none'):
+                self.flood_flow_get_deadends_again(point.parent)
 
     def print_board(self):
 

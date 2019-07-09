@@ -25,21 +25,23 @@ def avoid_self_and_borders_randomly(board, height, width, you_x, you_y, safe):
 def decide_move(board, height, width, you_x, you_y, you_health, you_body, snakes, you_id):
 
     can_chase_tail = True
-
     for snake in snakes:
         if snake["health"] >= you_health:
             if snake["id"] != you_id:
                 can_chase_tail = False
                 break
 
-    if (you_health >= 50) and can_chase_tail:
+    if (you_health >= 55) and can_chase_tail:
         move = chase_tail(board, you_x, you_y, height, width)
         if len(move) == 0:
             move2 = get_food(board, you_x, you_y, height, width)
             if len(move2) == 0:
                 move3 = avoid_self_and_borders_randomly(board, height, width, you_x, you_y, ['F', '.', 'T', 't'])
                 if len(move3) == 0:
-                    return avoid_self_and_borders_randomly(board, height, width, you_x, you_y, ['F', '.', 'T', 't', '*'])
+                    move4 = get_food(board, you_x, you_y, height, width, ['F', '.', 'T', 't', '!'])
+                    if len(move4) == 0:
+                        return avoid_self_and_borders_randomly(board, height, width, you_x, you_y, ['F', '.', 'T', 't', '!'])
+                    return move4
                 return move3
             return move2
         return move
@@ -50,7 +52,10 @@ def decide_move(board, height, width, you_x, you_y, you_health, you_body, snakes
             if len(move2) == 0:
                 move3 = avoid_self_and_borders_randomly(board, height, width, you_x, you_y, ['F', '.', 'T', 't'])
                 if len(move3) == 0:
-                    return avoid_self_and_borders_randomly(board, height, width, you_x, you_y, ['F', '.', 'T', 't', '*'])
+                    move4 = get_food(board, you_x, you_y, height, width, ['F', '.', 'T', 't', '!'])
+                    if len(move4) == 0:
+                        return avoid_self_and_borders_randomly(board, height, width, you_x, you_y, ['F', '.', 'T', 't', '!'])
+                    return move4
                 return move3
             return move2
         return move

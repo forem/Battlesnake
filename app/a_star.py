@@ -2,8 +2,8 @@ import collections
 
 from .point import *
 
-def a_star(board, you_x, you_y, height, width, target):
-    _open = collections.deque([Point(board, you_x, you_y, width, height)])
+def a_star(board, you_x, you_y, height, width, target, safe):
+    _open = collections.deque([Point(board, you_x, you_y, width, height, safe)])
     closed = set()
     while True:
         try:
@@ -32,8 +32,8 @@ def a_star(board, you_x, you_y, height, width, target):
                 _open.append(neighbor)
     return top.get_move()
 
-def get_food(board, you_x, you_y, height, width):
-    return a_star(board, you_x, you_y, height, width, 'F')
+def get_food(board, you_x, you_y, height, width, safe =  ['F', '.', 'T', 't']):
+    return a_star(board, you_x, you_y, height, width, 'F', safe)
 
-def chase_tail(board, you_x, you_y, height, width):
-    return a_star(board, you_x, you_y, height, width, 'T')
+def chase_tail(board, you_x, you_y, height, width, safe =  ['F', '.', 'T', 't', '!']):
+    return a_star(board, you_x, you_y, height, width, 'T', safe)
