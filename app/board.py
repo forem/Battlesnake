@@ -72,15 +72,16 @@ class Board:
             head_y_coord = head['y']
             self.board[head_y_coord][head_x_coord] = 'h'
 
-            if len(snake["body"]) >= you_size:
-                for neighbor in Point(self.board, head_x_coord, head_y_coord, width, height).get_neighbors():
-                    self.board[neighbor.y][neighbor.x] = '*'
-
             if not duplicates:
                 tail = snake["body"][-1]
                 tail_x_coord = tail['x']
                 tail_y_coord = tail['y']
                 self.board[tail_y_coord][tail_x_coord] = 't'
+
+            if len(snake["body"]) >= you_size:
+                for neighbor in Point(self.board, head_x_coord, head_y_coord, width, height).get_neighbors():
+                    self.board[neighbor.y][neighbor.x] = '*'
+
 
     def flood_flow_get_deadends(self, point):
         self.flood_flowed.append(point)
