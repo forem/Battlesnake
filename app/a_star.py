@@ -1,6 +1,6 @@
 import collections 
 
-from .point import *
+from point import *
 
 def a_star(board, you_x, you_y, height, width, target, safe):
     _open = collections.deque([Point(board, you_x, you_y, width, height, safe)])

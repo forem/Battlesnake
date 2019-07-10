@@ -1,6 +1,6 @@
 import random
 
-from .a_star import *
+from a_star import *
 
 def avoid_self_and_borders_randomly(board, height, width, you_x, you_y, safe):
     directions = list()

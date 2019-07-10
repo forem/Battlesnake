@@ -2,10 +2,11 @@ import json
 import os
 import bottle
 
-from .board import *
-from .logic import *
+from variables import *
+from board import *
+from logic import *
 
-from .api import ping_response, start_response, move_response, end_response
+from api import ping_response, start_response, move_response, end_response
 
 @bottle.route('/')
 def index():
@@ -51,6 +52,8 @@ def move():
     you_x, you_y = you_body[0]["x"], you_body[0]["y"]
     you_id = data["you"]["id"]
     snakes = data["board"]["snakes"]
+
+    variables = Variables(data)
 
     board = Board(height, width, food, you_body, snakes, you_id, you_health)
 
