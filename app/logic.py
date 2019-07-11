@@ -1,27 +1,16 @@
 import random
 
 from a_star import *
+from point import *
 
 def avoid_self_and_borders_randomly(variables, safe):
-    board = variables.board
-    height = variables.height
-    width = variables.width
     you_x = variables.you_x
     you_y = variables.you_y
+    point = Point(variables, you_x, you_y, safe)
     directions = list()
 
-    if you_y < (height - 1):
-        if (board[you_y + 1][you_x] in safe):
-            directions.append('down')
-    if you_y > 0:
-        if (board[you_y - 1][you_x] in safe):
-            directions.append('up')
-    if you_x > 0:
-        if (board[you_y][you_x - 1] in safe):
-            directions.append('left')
-    if you_x < (width - 1):
-        if (board[you_y][you_x + 1] in safe):
-            directions.append('right')
+    for neighbor in point.get_neighbors():
+        directions.append(neighbor.direction)
 
     if len(directions) == 0:
         return directions

@@ -41,7 +41,6 @@ def start():
 
     return start_response()
 
-
 @bottle.post('/move')
 def move():
     data = bottle.request.json
@@ -51,8 +50,6 @@ def move():
     move = decide_move(variables)
 
     board.print_board()
-    print(f'x: {variables.you_x + 1}')
-    print(f'y: {variables.you_y + 1}')
     print(f'move: {move}')
     print(f'health: {variables.you_health}')
 
@@ -60,7 +57,6 @@ def move():
         print('Believed loss')
         return random.choice(['up', 'down', 'left', 'right'])
     return move_response(move)
-
 
 @bottle.post('/end')
 def end():

@@ -144,3 +144,4 @@ class Board:
                 print(coord, end ="  ")
             print()
             y_label += 1
+    
