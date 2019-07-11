@@ -47,10 +47,8 @@ def move():
     data = bottle.request.json
 
     variables = Variables(data)
-
     board = Board(variables)
-
-    move = decide_move(variables.board, variables.height, variables.width, variables.you_x, variables.you_y, variables.you_health, variables.you_body, variables.snakes, variables.you_id)
+    move = decide_move(variables)
 
     board.print_board()
     print(f'x: {variables.you_x + 1}')

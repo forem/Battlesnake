@@ -2,7 +2,12 @@ import random
 
 from a_star import *
 
-def avoid_self_and_borders_randomly(board, height, width, you_x, you_y, safe):
+def avoid_self_and_borders_randomly(variables, safe):
+    board = variables.board
+    height = variables.height
+    width = variables.width
+    you_x = variables.you_x
+    you_y = variables.you_y
     directions = list()
 
     if you_y < (height - 1):
@@ -22,7 +27,16 @@ def avoid_self_and_borders_randomly(board, height, width, you_x, you_y, safe):
         return directions
     return random.choice(directions)
 
-def decide_move(board, height, width, you_x, you_y, you_health, you_body, snakes, you_id):
+def decide_move(variables):
+    board = variables.board
+    height = variables.height
+    width = variables.width
+    you_x = variables.you_x
+    you_y = variables.you_y
+    you_health = variables.you_health
+    you_body = variables.you_body
+    snakes = variables.snakes
+    you_id = variables.you_id
 
     you_size = len(you_body)
     can_chase_tail = True
@@ -37,13 +51,13 @@ def decide_move(board, height, width, you_x, you_y, you_health, you_body, snakes
         if len(move) == 0:
             move2 = get_food(board, you_x, you_y, height, width)
             if len(move2) == 0:
-                move3 = avoid_self_and_borders_randomly(board, height, width, you_x, you_y, ['F', '.', 'T', 't'])
+                move3 = avoid_self_and_borders_randomly(variables, ['F', '.', 'T', 't'])
                 if len(move3) == 0:
                     move4 = chase_tail(board, you_x, you_y, height, width, ['F', '.', 'T', 't', '!', '*'])
                     if len(move4) == 0:
                         move5 = get_food(board, you_x, you_y, height, width, ['F', '.', 'T', 't', '!', '*'])
                         if len(move5) == 0:
-                            return avoid_self_and_borders_randomly(board, height, width, you_x, you_y, ['F', '.', 'T', 't', '!', '*'])
+                            return avoid_self_and_borders_randomly(variables, ['F', '.', 'T', 't', '!', '*'])
                         return move5
                     return move4
                 return move3
@@ -56,9 +70,9 @@ def decide_move(board, height, width, you_x, you_y, you_health, you_body, snakes
             if len(move2) == 0:
                 move3 = chase_tail(board, you_x, you_y, height, width)
                 if len(move3) == 0:
-                    move4 = avoid_self_and_borders_randomly(board, height, width, you_x, you_y, ['F', '.', 'T', 't'])
+                    move4 = avoid_self_and_borders_randomly(variables, ['F', '.', 'T', 't'])
                     if len(move4) == 0:
-                        return avoid_self_and_borders_randomly(board, height, width, you_x, you_y, ['F', '.', 'T', 't', '!', '*'])
+                        return avoid_self_and_borders_randomly(variables, ['F', '.', 'T', 't', '!', '*'])
                     return move4
                 return move3
             return move2
@@ -68,11 +82,11 @@ def decide_move(board, height, width, you_x, you_y, you_health, you_body, snakes
         if len(move) == 0:
             move2 = chase_tail(board, you_x, you_y, height, width)
             if len(move2) == 0:
-                move3 = avoid_self_and_borders_randomly(board, height, width, you_x, you_y, ['F', '.', 'T', 't'])
+                move3 = avoid_self_and_borders_randomly(variables, ['F', '.', 'T', 't'])
                 if len(move3) == 0:
                     move4 = get_food(board, you_x, you_y, height, width, ['F', '.', 'T', 't', '!', '*'])
                     if len(move4) == 0:
-                        return avoid_self_and_borders_randomly(board, height, width, you_x, you_y, ['F', '.', 'T', 't', '!', '*'])
+                        return avoid_self_and_borders_randomly(variables, ['F', '.', 'T', 't', '!', '*'])
                     return move4
                 return move3
             return move2
