@@ -1,10 +1,11 @@
 class Point:
-    def __init__(self, board, x, y, width, height, safe = ['F', '.', 'T', 't'], rank = 0, direction = "none", parent = 'none'):
-        self.board = board
+    def __init__(self, variables, x, y, safe = ['F', '.', 'T', 't'], rank = 0, direction = "none", parent = 'none'):
+        self.variables = variables
+        self.board = variables.board
         self.x = x
         self.y = y
-        self.width = width
-        self.height = height
+        self.width = variables.width
+        self.height = variables.height
         self.rank = rank
         self.direction = direction
         self.parent = parent
@@ -20,19 +21,19 @@ class Point:
         neighbors = []
 
         if self.y > 0:
-            up = Point(self.board, self.x, self.y - 1, self.width, self.height, self.safe, self.rank + 1, "up", self)
+            up = Point(self.variables, self.x, self.y - 1, self.safe, self.rank + 1, "up", self)
             if up.check_safe():
                 neighbors.append(up)
         if self.y < (self.height - 1):
-            down = Point(self.board, self.x, self.y + 1, self.width, self.height, self.safe, self.rank + 1, "down", self)
+            down = Point(self.variables, self.x, self.y + 1, self.safe, self.rank + 1, "down", self)
             if down.check_safe():
                 neighbors.append(down)
         if self.x < (self.width - 1):
-            right = Point(self.board, self.x + 1, self.y, self.width, self.height, self.safe, self.rank + 1, "right", self)
+            right = Point(self.variables, self.x + 1, self.y, self.safe, self.rank + 1, "right", self)
             if right.check_safe():
                 neighbors.append(right)
         if self.x > 0:
-            left = Point(self.board, self.x - 1, self.y, self.width, self.height, self.safe, self.rank + 1, "left", self)
+            left = Point(self.variables, self.x - 1, self.y, self.safe, self.rank + 1, "left", self)
             if left.check_safe():
                 neighbors.append(left)
 

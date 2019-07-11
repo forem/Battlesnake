@@ -8,7 +8,7 @@ def a_star(variables, target, safe):
     you_y = variables.you_y
     height = variables.height
     width = variables.width
-    _open = collections.deque([Point(board, you_x, you_y, width, height, safe)])
+    _open = collections.deque([Point(variables, you_x, you_y, safe)])
     closed = set()
 
     while True:

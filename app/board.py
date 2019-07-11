@@ -11,7 +11,7 @@ class Board:
         self.add_you()
         self.add_others()
         self.flood_flowed = list()
-        flood_start = Point(variables.board, variables.you_x, variables.you_y, variables.width, variables.height)
+        flood_start = Point(variables, variables.you_x, variables.you_y)
         self.flood_flow_get_deadends(flood_start)
         
         if variables.you_health < 30:
