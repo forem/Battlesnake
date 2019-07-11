@@ -53,9 +53,6 @@ def move():
     print(f'move: {move}')
     print(f'health: {variables.you_health}')
 
-    if len(move) == 0:
-        print('Believed loss')
-        return random.choice(['up', 'down', 'left', 'right'])
     return move_response(move)
 
 @bottle.post('/end')
