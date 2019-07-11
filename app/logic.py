@@ -73,7 +73,7 @@ def decide_move(variables):
     you_size = len(you_body)
     can_chase_tail = True
     for snake in snakes:
-        if (snake["health"] >= you_health) or (len(snake["body"]) >= you_size):
+        if len(snake["body"]) >= you_size:
             if snake["id"] != you_id:
                 can_chase_tail = False
                 break
