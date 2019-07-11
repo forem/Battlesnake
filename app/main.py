@@ -46,24 +46,17 @@ def start():
 def move():
     data = bottle.request.json
 
-    height, width = data["board"]["height"], data["board"]["width"]
-    food = data["board"]["food"]
-    you_health, you_body = data["you"]["health"], data["you"]["body"]
-    you_x, you_y = you_body[0]["x"], you_body[0]["y"]
-    you_id = data["you"]["id"]
-    snakes = data["board"]["snakes"]
-
     variables = Variables(data)
 
-    board = Board(height, width, food, you_body, snakes, you_id, you_health)
+    board = Board(variables)
 
-    move = decide_move(board.board, height, width, you_x, you_y, you_health, you_body, snakes, you_id)
+    move = decide_move(variables.board, variables.height, variables.width, variables.you_x, variables.you_y, variables.you_health, variables.you_body, variables.snakes, variables.you_id)
 
     board.print_board()
-    print(f'x: {you_x + 1}')
-    print(f'y: {you_y + 1}')
+    print(f'x: {variables.you_x + 1}')
+    print(f'y: {variables.you_y + 1}')
     print(f'move: {move}')
-    print(f'health: {you_health}')
+    print(f'health: {variables.you_health}')
 
     if len(move) == 0:
         print('Believed loss')
