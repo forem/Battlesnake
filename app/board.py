@@ -97,7 +97,7 @@ class Board:
                 board[tail_y_coord][tail_x_coord] = 't'
 
             if len(snake["body"]) >= you_size:
-                for neighbor in Point(board, head_x_coord, head_y_coord, width, height).get_neighbors():
+                for neighbor in Point(self.variables, head_x_coord, head_y_coord).get_neighbors():
                     board[neighbor.y][neighbor.x] = '*'
 
     def flood_flow_get_deadends(self, point):
