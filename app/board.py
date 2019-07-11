@@ -1,6 +1,6 @@
 from collections import deque
 
-from point import *
+from .point import *
 
 class Board:
 

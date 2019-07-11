@@ -1,9 +1,9 @@
 import random
 
-from a_star import *
-from point import *
+from .a_star import *
+from .point import *
 
-def avoid_self_and_borders_randomly(variables, safe):
+def avoid_self_and_borders_randomly(variables, safe = ['F', '.', 'T', 't']):
     you_x = variables.you_x
     you_y = variables.you_y
     point = Point(variables, you_x, you_y, safe)
@@ -19,49 +19,43 @@ def avoid_self_and_borders_randomly(variables, safe):
 def favor_chase_tail(variables):
     move = chase_tail(variables)
     if len(move) == 0:
-        move2 = get_food(variables)
-        if len(move2) == 0:
-            move3 = avoid_self_and_borders_randomly(variables, ['F', '.', 'T', 't'])
-            if len(move3) == 0:
-                move4 = chase_tail(variables, ['F', '.', 'T', 't', '!', '*'])
-                if len(move4) == 0:
-                    move5 = get_food(variables, ['F', '.', 'T', 't', '!', '*'])
-                    if len(move5) == 0:
-                        return avoid_self_and_borders_randomly(variables, ['F', '.', 'T', 't', '!', '*'])
-                    return move5
-                return move4
-            return move3
-        return move2
+        move = get_food(variables)
+        if len(move) == 0:
+            move = avoid_self_and_borders_randomly(variables)
+            if len(move) == 0:
+                move = chase_tail(variables, ['F', '.', 'T', 't', '!', '*'])
+                if len(move) == 0:
+                    move = get_food(variables, ['F', '.', 'T', 't', '!', '*'])
+                    if len(move) == 0:
+                        move = avoid_self_and_borders_randomly(variables, ['F', '.', 'T', 't', '!', '*'])
     return move
 
 def heavily_favor_get_food(variables):
     move = get_food(variables)
     if len(move) == 0:
-        move2 = get_food(variables, ['F', '.', 'T', 't', '!', '*'])
-        if len(move2) == 0:
-            move3 = chase_tail(variables)
-            if len(move3) == 0:
-                move4 = avoid_self_and_borders_randomly(variables, ['F', '.', 'T', 't'])
-                if len(move4) == 0:
-                    return avoid_self_and_borders_randomly(variables, ['F', '.', 'T', 't', '!', '*'])
-                return move4
-            return move3
-        return move2
+        move = get_food(variables, ['F', '.', 'T', 't', '!', '*'])
+        if len(move) == 0:
+            move = chase_tail(variables)
+            if len(move) == 0:
+                move = chase_tail(variables, ['F', '.', 'T', 't', '!', '*'])
+                if len(move) == 0:
+                    move = avoid_self_and_borders_randomly(variables)
+                    if len(move) == 0:
+                        move =  avoid_self_and_borders_randomly(variables, ['F', '.', 'T', 't', '!', '*'])
     return move
 
 def favor_get_food(variables):
     move = get_food(variables)
     if len(move) == 0:
-        move2 = chase_tail(variables)
-        if len(move2) == 0:
-            move3 = avoid_self_and_borders_randomly(variables, ['F', '.', 'T', 't'])
-            if len(move3) == 0:
-                move4 = get_food(variables, ['F', '.', 'T', 't', '!', '*'])
-                if len(move4) == 0:
-                    return avoid_self_and_borders_randomly(variables, ['F', '.', 'T', 't', '!', '*'])
-                return move4
-            return move3
-        return move2
+        move = chase_tail(variables)
+        if len(move) == 0:
+            move = avoid_self_and_borders_randomly(variables)
+            if len(move) == 0:
+                move = get_food(variables, ['F', '.', 'T', 't', '!', '*'])
+                if len(move) == 0:
+                    move = chase_tail(variables, ['F', '.', 'T', 't', '!', '*'])
+                    if len(move) == 0:
+                        move = avoid_self_and_borders_randomly(variables, ['F', '.', 'T', 't', '!', '*'])
     return move
 
 

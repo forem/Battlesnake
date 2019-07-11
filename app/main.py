@@ -2,11 +2,11 @@ import json
 import os
 import bottle
 
-from variables import *
-from board import *
-from logic import *
+from .variables import *
+from .board import *
+from .logic import *
 
-from api import ping_response, start_response, move_response, end_response
+from .api import ping_response, start_response, move_response, end_response
 
 @bottle.route('/')
 def index():
