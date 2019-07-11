@@ -47,15 +47,15 @@ def decide_move(variables):
                 break
 
     if (you_health >= 55) and can_chase_tail:
-        move = chase_tail(board, you_x, you_y, height, width)
+        move = chase_tail(variables)
         if len(move) == 0:
-            move2 = get_food(board, you_x, you_y, height, width)
+            move2 = get_food(variables)
             if len(move2) == 0:
                 move3 = avoid_self_and_borders_randomly(variables, ['F', '.', 'T', 't'])
                 if len(move3) == 0:
-                    move4 = chase_tail(board, you_x, you_y, height, width, ['F', '.', 'T', 't', '!', '*'])
+                    move4 = chase_tail(variables, ['F', '.', 'T', 't', '!', '*'])
                     if len(move4) == 0:
-                        move5 = get_food(board, you_x, you_y, height, width, ['F', '.', 'T', 't', '!', '*'])
+                        move5 = get_food(variables, ['F', '.', 'T', 't', '!', '*'])
                         if len(move5) == 0:
                             return avoid_self_and_borders_randomly(variables, ['F', '.', 'T', 't', '!', '*'])
                         return move5
@@ -64,11 +64,11 @@ def decide_move(variables):
             return move2
         return move
     elif you_health < 30:
-        move = get_food(board, you_x, you_y, height, width)
+        move = get_food(variables)
         if len(move) == 0:
-            move2 = get_food(board, you_x, you_y, height, width, ['F', '.', 'T', 't', '!', '*'])
+            move2 = get_food(variables, ['F', '.', 'T', 't', '!', '*'])
             if len(move2) == 0:
-                move3 = chase_tail(board, you_x, you_y, height, width)
+                move3 = chase_tail(variables)
                 if len(move3) == 0:
                     move4 = avoid_self_and_borders_randomly(variables, ['F', '.', 'T', 't'])
                     if len(move4) == 0:
@@ -78,13 +78,13 @@ def decide_move(variables):
             return move2
         return move
     else:
-        move = get_food(board, you_x, you_y, height, width)
+        move = get_food(variables)
         if len(move) == 0:
-            move2 = chase_tail(board, you_x, you_y, height, width)
+            move2 = chase_tail(variables)
             if len(move2) == 0:
                 move3 = avoid_self_and_borders_randomly(variables, ['F', '.', 'T', 't'])
                 if len(move3) == 0:
-                    move4 = get_food(board, you_x, you_y, height, width, ['F', '.', 'T', 't', '!', '*'])
+                    move4 = get_food(variables, ['F', '.', 'T', 't', '!', '*'])
                     if len(move4) == 0:
                         return avoid_self_and_borders_randomly(variables, ['F', '.', 'T', 't', '!', '*'])
                     return move4
