@@ -14,7 +14,7 @@ def start_response():
             "Content-Type": "application/json"
         },
         body=json.dumps({
-            "color": "#4584b6",
+            "color": random.choice(["#4584b6", "#ffe873"]),
             "headType": "safe",
             "tailType": "round-bum"
         })
