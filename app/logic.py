@@ -31,6 +31,8 @@ def move_to_space(variables, safe = ['F', '.', 'T', 't']):
     for key in moves.keys():
         if moves[key] == best:
             best_move.append(key)
+    if len(best_move) == 0:
+        return best_move
     return random.choice(best_move)
 
 
