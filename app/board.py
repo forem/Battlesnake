@@ -103,20 +103,26 @@ class Board:
         you_x = self.variables.you_x
         you_y = self.variables.you_y
         you_size = len(self.variables.you_body)
-        safe = ['F', '.', 'T', 't', '!']
+        safe = ['F', '.', 'T', 't', '!', 'h', 'H']
         point = Point(self.variables, you_x, you_y, safe)
 
         for possible_move in point.get_neighbors():
             points = collections.deque([possible_move])
             free_space = 0
             checked = list()
+            distance_away = 0
             while len(points) > 0:
                 current = points.popleft()
+                distance_away += 1
                 free_space += 1
                 checked.append(current)
-                for neighbor in current.get_neighbors():
-                    if (not neighbor in checked) and (not neighbor in points):
-                        points.append(neighbor)
+                neighbors = current.get_neighbors()
+                if (not 'h' in neighbors) or (distance_away == 1):
+                    for neighbor in neighbors:
+                        if (not neighbor in checked) and (not neighbor in points) and (not neighbor.get_symbol() == 'h'):
+                            points.append(neighbor)
+                else:
+                    free_space -= 1
             if free_space < (you_size + 1):
                 self.variables.board[possible_move.y][possible_move.x] = '!'
 
