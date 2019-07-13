@@ -118,7 +118,7 @@ class Board:
                     if (not neighbor in checked) and (not neighbor in points):
                         points.append(neighbor)
             if free_space < (you_size + 1):
-                board[possible_move.y][possible_move.x] = '!'
+                self.variables.board[possible_move.y][possible_move.x] = '!'
 
     def print_board(self):
         board = self.variables.board
