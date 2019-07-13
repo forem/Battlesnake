@@ -6,12 +6,24 @@ Visit [https://github.com/battlesnakeio/community/blob/master/starter-snakes.md]
 
 This AI client uses the [bottle web framework](http://bottlepy.org/docs/dev/index.html) to serve requests and the [gunicorn web server](http://gunicorn.org/) for running bottle on Heroku. Dependencies are listed in [requirements.txt](requirements.txt).
 
+## Basic Logic
+
+1. Create a Variables object with all the relevant information
+1. Populate a board with given information (size, your location, opposing snake locations, food)
+1. Populate the board with special symbols for bigger snake's possible moves
+1. Populate the board with special symbols for dead ends
+1. Determine move
+   1. Decide if we need to eat
+      1. Check if it is safe to eat
+      1. Use A* to navigate to closest food
+      1. Otherwise, chase our tail or move toward free space
+   1. If we don't need to eat we chase our tail or move toward free space
+
 ## Todo
 
 - Better predict path of larger snakes
 - Zone off snakes
 - Change snake tactic depending on amount of snakes left and how long the game has been going
-- Update documentation
 - Keep track of wins/losses
 
 ## Running the Snake Locally
@@ -21,12 +33,12 @@ This AI client uses the [bottle web framework](http://bottlepy.org/docs/dev/inde
 - a working Python 3.7 development environment
 - [pip](https://pip.pypa.io/en/latest/installing.html) to install Python dependencies
 
-1. [Fork this repo](https://github.com/battlesnakeio/starter-snake-python/fork).
+1. [Fork this repo](https://github.com/OliverMKing/Battlesnake/fork).
 
 2. Clone repo to your development environment:
 
 ```
-git clone git@github.com:<your github username>/starter-snake-python.git
+git clone git@github.com:<your github username>/Battlesnake.git
 ```
 
 3. Install dependencies using [pip](https://pip.pypa.io/en/latest/installing.html):
