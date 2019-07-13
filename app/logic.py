@@ -115,8 +115,8 @@ def decide_move(variables):
     you_body = variables.you_body
     snakes = variables.snakes
     you_id = variables.you_id
-
     you_size = len(you_body)
+    
     can_chase_tail = True
     for snake in snakes:
         if len(snake["body"]) >= you_size:

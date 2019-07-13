@@ -10,11 +10,9 @@ class Board:
         self.add_food()
         self.add_you()
         self.add_others()
-        self.flood_flowed = list()
-        flood_start = Point(variables, variables.you_x, variables.you_y)
-        self.flood_flow_get_deadends(flood_start)
+        self.flood_flow_get_deadends()
         
-        if variables.you_health < 30:
+        if variables.you_health < 10:
             self.add_food()
 
     def create_empty_board(self):
@@ -100,25 +98,26 @@ class Board:
                 for neighbor in Point(self.variables, head_x_coord, head_y_coord).get_neighbors():
                     board[neighbor.y][neighbor.x] = '*'
 
-    def flood_flow_get_deadends(self, point):
-        self.flood_flowed.append(point)
-        if (not point.check_safe()) and (not self.variables.board[point.y][point.x] == 'H'):
-            return
-        for neighbor in point.get_neighbors():
-            if not neighbor in self.flood_flowed:
-                self.flood_flow_get_deadends(neighbor)
-        if (len(point.get_neighbors()) <= 1) and (not self.variables.board[point.y][point.x] in ['H', 'T', 't']):
-            self.variables.board[point.y][point.x] = '!'
-            if(not point.parent == 'none'):
-                self.flood_flow_get_deadends_again(point.parent)
+    def flood_flow_get_deadends(self):
+        you_x = self.variables.you_x
+        you_y = self.variables.you_y
+        you_size = len(self.variables.you_body)
+        safe = ['F', '.', 'T', 't', '!']
+        point = Point(self.variables, you_x, you_y, safe)
 
-    def flood_flow_get_deadends_again(self, point):
-        if (not point.check_safe()) and (not self.variables.board[point.y][point.x] == 'H'):
-            return
-        if (len(point.get_neighbors()) == 0) and (not self.variables.board[point.y][point.x] in ['H', 'T', 't']):
-            self.variables.board[point.y][point.x] = '!'
-            if(not point.parent == 'none'):
-                self.flood_flow_get_deadends_again(point.parent)
+        for possible_move in point.get_neighbors():
+            points = collections.deque([possible_move])
+            free_space = 0
+            checked = list()
+            while len(points) > 0:
+                current = points.popleft()
+                free_space += 1
+                checked.append(current)
+                for neighbor in current.get_neighbors():
+                    if (not neighbor in checked) and (not neighbor in points):
+                        points.append(neighbor)
+            if free_space < (you_size + 1):
+                board[possible_move.y][possible_move.x] = '!'
 
     def print_board(self):
         board = self.variables.board
