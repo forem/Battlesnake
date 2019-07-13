@@ -22,6 +22,7 @@ This AI client uses the [bottle web framework](http://bottlepy.org/docs/dev/inde
 ## Todo
 
 - Better predict path of larger snakes
+- Check if I am closer to food
 - Factor if tail will be there in flood flow
 - Zone off snakes
 - Change snake tactic depending on amount of snakes left and how long the game has been going
