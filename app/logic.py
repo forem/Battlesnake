@@ -128,7 +128,7 @@ def decide_move(variables):
         move = favor_chase_tail(variables)
         if move in ['up', 'down', 'left', 'right']:
             return move
-    elif you_health < 30:
+    elif you_health <= 15:
         move = heavily_favor_get_food(variables)
         if move in ['up', 'down', 'left', 'right']:
             return move
