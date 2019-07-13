@@ -10,6 +10,7 @@ This AI client uses the [bottle web framework](http://bottlepy.org/docs/dev/inde
 
 - Change snake tactic depending on amount of snakes left and how long the game has been going
 - Keep track of wins/losses
+- Better predict path of larger snakes
 
 ## Running the Snake Locally
 
