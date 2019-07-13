@@ -124,7 +124,8 @@ class Board:
                 else:
                     free_space -= 1
             if free_space < (you_size + 1):
-                self.variables.board[possible_move.y][possible_move.x] = '!'
+                if not self.variables.board[possible_move.y][possible_move.x] in ['T', 't']:
+                    self.variables.board[possible_move.y][possible_move.x] = '!'
 
     def print_board(self):
         board = self.variables.board
