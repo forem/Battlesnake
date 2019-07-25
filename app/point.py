@@ -53,4 +53,4 @@ class Point:
             return NotImplemented
 
     def __hash__(self):
-        return hash((self.x, self.y))
+        return hash((self.x, self.y))        

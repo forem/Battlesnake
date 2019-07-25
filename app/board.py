@@ -103,7 +103,7 @@ class Board:
         you_x = self.variables.you_x
         you_y = self.variables.you_y
         you_size = len(self.variables.you_body)
-        safe = ['F', '.', 'T', 't', '!', 'h', 'H']
+        safe = ['F', '.', 'T', 't', '!', 'h']
         point = Point(self.variables, you_x, you_y, safe)
 
         for possible_move in point.get_neighbors():
@@ -151,4 +151,3 @@ class Board:
                 print(coord, end ="  ")
             print()
             y_label += 1
-    
