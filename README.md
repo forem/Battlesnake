@@ -24,6 +24,7 @@ This AI client uses the [bottle web framework](http://bottlepy.org/docs/dev/inde
 ## Todo
 
 - Better predict path of larger snakes
+- Avoid edges of the board / try to chase tail in free space
 - Check if I am closer to food
 - Factor if tail will be there in flood flow
 - Zone off snakes
