@@ -1,8 +1,8 @@
 import random
 import collections
 
-from a_star import *
-from point import *
+from .a_star import *
+from .point import *
 
 
 def move_to_space(variables, safe=['F', '.', 'T']):
