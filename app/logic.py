@@ -1,10 +1,11 @@
 import random
-import collections 
+import collections
 
-from .a_star import *
-from .point import *
+from a_star import *
+from point import *
 
-def move_to_space(variables, safe = ['F', '.', 'T', 't']):
+
+def move_to_space(variables, safe=['F', '.', 'T']):
     you_x = variables.you_x
     you_y = variables.you_y
     point = Point(variables, you_x, you_y, safe)
@@ -36,8 +37,7 @@ def move_to_space(variables, safe = ['F', '.', 'T', 't']):
     return random.choice(best_move)
 
 
-
-def avoid_self_and_borders_randomly(variables, safe = ['F', '.', 'T', 't']):
+def avoid_self_and_borders_randomly(variables, safe=['F', '.', 'T', 't']):
     you_x = variables.you_x
     you_y = variables.you_y
     point = Point(variables, you_x, you_y, safe)
@@ -50,23 +50,33 @@ def avoid_self_and_borders_randomly(variables, safe = ['F', '.', 'T', 't']):
         return directions
     return random.choice(directions)
 
+
 def favor_chase_tail(variables):
     move = chase_tail(variables)
     if len(move) == 0:
-        move = move_to_space(variables)
+        move = chase_tail(variables, ['F', '.', 'T', 't', '!'])
         if len(move) == 0:
-            move = get_food(variables)
+            move = move_to_space(variables)
             if len(move) == 0:
-                move = avoid_self_and_borders_randomly(variables)
+                move = get_food(variables)
                 if len(move) == 0:
-                    move = chase_tail(variables, ['F', '.', 'T', 't', '!', '*'])
+                    move = get_food(variables, ['F', '.', 'T', 't', '!'])
                     if len(move) == 0:
-                        move = move_to_space(variables, ['F', '.', 'T', 't', '!', '*'])
+                        move = avoid_self_and_borders_randomly(variables)
                         if len(move) == 0:
-                            move = get_food(variables, ['F', '.', 'T', 't', '!', '*'])
+                            move = chase_tail(
+                                variables, ['F', '.', 'T', 't', '!', '*'])
                             if len(move) == 0:
-                                move = avoid_self_and_borders_randomly(variables, ['F', '.', 'T', 't', '!', '*'])
+                                move = move_to_space(
+                                    variables, ['F', '.', 'T', 't', '!', '*'])
+                                if len(move) == 0:
+                                    move = get_food(
+                                        variables, ['F', '.', 'T', 't', '!', '*'])
+                                    if len(move) == 0:
+                                        move = avoid_self_and_borders_randomly(
+                                            variables, ['F', '.', 'T', 't', '!', '*'])
     return move
+
 
 def heavily_favor_get_food(variables):
     move = get_food(variables)
@@ -77,14 +87,18 @@ def heavily_favor_get_food(variables):
             if len(move) == 0:
                 move = move_to_space(variables)
                 if len(move) == 0:
-                    move = chase_tail(variables, ['F', '.', 'T', 't', '!', '*'])
+                    move = chase_tail(
+                        variables, ['F', '.', 'T', 't', '!', '*'])
                     if len(move) == 0:
                         move = avoid_self_and_borders_randomly(variables)
                         if len(move) == 0:
-                            move = move_to_space(variables, ['F', '.', 'T', 't', '!', '*'])
+                            move = move_to_space(
+                                variables, ['F', '.', 'T', 't', '!', '*'])
                             if len(move) == 0:
-                                move =  avoid_self_and_borders_randomly(variables, ['F', '.', 'T', 't', '!', '*'])
+                                move = avoid_self_and_borders_randomly(
+                                    variables, ['F', '.', 'T', 't', '!', '*'])
     return move
+
 
 def favor_get_food(variables):
     move = get_food(variables)
@@ -97,11 +111,14 @@ def favor_get_food(variables):
                 if len(move) == 0:
                     move = get_food(variables, ['F', '.', 'T', 't', '!', '*'])
                     if len(move) == 0:
-                        move = chase_tail(variables, ['F', '.', 'T', 't', '!', '*'])
+                        move = chase_tail(
+                            variables, ['F', '.', 'T', 't', '!', '*'])
                         if len(move) == 0:
-                            move = move_to_space(variables, ['F', '.', 'T', 't', '!', '*'])
+                            move = move_to_space(
+                                variables, ['F', '.', 'T', 't', '!', '*'])
                             if len(move) == 0:
-                                move = avoid_self_and_borders_randomly(variables, ['F', '.', 'T', 't', '!', '*'])
+                                move = avoid_self_and_borders_randomly(
+                                    variables, ['F', '.', 'T', 't', '!', '*'])
     return move
 
 
@@ -116,7 +133,7 @@ def decide_move(variables):
     snakes = variables.snakes
     you_id = variables.you_id
     you_size = len(you_body)
-    
+
     can_chase_tail = True
     for snake in snakes:
         if len(snake["body"]) >= you_size:
@@ -136,6 +153,5 @@ def decide_move(variables):
         move = favor_get_food(variables)
         if move in ['up', 'down', 'left', 'right']:
             return move
- 
-    return random.choice(['up', 'down', 'left', 'right'])
 
+    return random.choice(['up', 'down', 'left', 'right'])

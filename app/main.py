@@ -2,11 +2,12 @@ import json
 import os
 import bottle
 
-from .variables import *
-from .board import *
-from .logic import *
+from variables import *
+from board import *
+from logic import *
 
-from .api import ping_response, start_response, move_response, end_response
+from api import ping_response, start_response, move_response, end_response
+
 
 @bottle.route('/')
 def index():
@@ -14,6 +15,7 @@ def index():
     Battlesnake documentation can be found at
        <a href="https://docs.battlesnake.io">https://docs.battlesnake.io</a>.
     '''
+
 
 @bottle.route('/static/<path:path>')
 def static(path):
@@ -25,6 +27,7 @@ def static(path):
     """
     return bottle.static_file(path, root='static/')
 
+
 @bottle.post('/ping')
 def ping():
     """
@@ -33,6 +36,7 @@ def ping():
     """
     return ping_response()
 
+
 @bottle.post('/start')
 def start():
     data = bottle.request.json
@@ -40,6 +44,7 @@ def start():
     print(json.dumps(data))
 
     return start_response()
+
 
 @bottle.post('/move')
 def move():
@@ -55,6 +60,7 @@ def move():
 
     return move_response(move)
 
+
 @bottle.post('/end')
 def end():
     data = bottle.request.json
@@ -62,6 +68,7 @@ def end():
     # print(json.dumps(data))
 
     return end_response()
+
 
 # Expose WSGI app (so gunicorn can find it)
 application = bottle.default_app()

@@ -1,7 +1,8 @@
 from collections import deque
-import collections 
+import collections
 
-from .point import *
+from point import *
+
 
 class Board:
 
@@ -12,7 +13,7 @@ class Board:
         self.add_you()
         self.add_others()
         self.flood_flow_get_deadends()
-        
+
         if variables.you_health < 10:
             self.add_food()
 
@@ -83,7 +84,7 @@ class Board:
                     duplicates = True
                 coords.add((x_coord, y_coord))
                 board[y_coord][x_coord] = 'o'
-                
+
             head = snake["body"][0]
             head_x_coord = head['x']
             head_y_coord = head['y']
@@ -131,10 +132,10 @@ class Board:
         board = self.variables.board
 
         x_label = 1
-        print("  ", end =" ")
+        print("  ", end=" ")
         for coord in board[0]:
             if x_label < 10:
-                print(x_label, end ="  ")
+                print(x_label, end="  ")
             else:
                 print(x_label, end=" ")
             x_label += 1
@@ -143,11 +144,11 @@ class Board:
         y_label = 1
         for x in board:
             if y_label < 10:
-                print(y_label, end ="  ")
+                print(y_label, end="  ")
             else:
-                print(y_label, end =" ")
+                print(y_label, end=" ")
 
             for coord in x:
-                print(coord, end ="  ")
+                print(coord, end="  ")
             print()
             y_label += 1

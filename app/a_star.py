@@ -1,6 +1,7 @@
-import collections 
+import collections
 
-from .point import *
+from point import *
+
 
 def a_star(variables, target, safe):
     board = variables.board
@@ -27,7 +28,7 @@ def a_star(variables, target, safe):
                     if value.rank > neighbor.rank:
                         _open.remove(value)
                     else:
-                        in_open = True                            
+                        in_open = True
             for value in tuple(closed):
                 if value == neighbor:
                     if value.rank > neighbor.rank:
@@ -38,8 +39,10 @@ def a_star(variables, target, safe):
                 _open.append(neighbor)
     return top.get_move()
 
-def get_food(variables, safe =  ['F', '.', 'T', 't']):
+
+def get_food(variables, safe=['F', '.']):
     return a_star(variables, 'F', safe)
 
-def chase_tail(variables, safe =  ['F', '.', 'T', 't', '!']):
+
+def chase_tail(variables, safe=['F', '.', 'T', '!']):
     return a_star(variables, 'T', safe)
