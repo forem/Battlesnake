@@ -2,6 +2,8 @@
 
 Watch my snake in action [here](https://play.battlesnake.com/s/snk_9gM8RBkRrDjrCKvF9Mrd9qfc/).
 
+## Info
+
 My [Battlesnake AI](http://battlesnake.io) is written in Python. It currently uses A\* and other logic to determine the best path to gather food and follow its tail.
 
 Visit [https://github.com/battlesnakeio/community/blob/master/starter-snakes.md](https://github.com/battlesnakeio/community/blob/master/starter-snakes.md) for API documentation and instructions for running the AI.
